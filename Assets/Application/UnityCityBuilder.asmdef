@@ -1,0 +1,22 @@
+{
+    "name": "UnityCityBuilder",
+    "references": [
+        "WorstGameStudios.Core",
+        "WorstGameStudios.Core.Abstractions",
+        "AssetStore.AsyncAwaitUtils",
+        "AssetStore.Demigiant.DOTween",
+        "Zenject",
+        "UniRx",
+        "Unity.TextMeshPro",
+        "CityBuilder",
+        "AssetStore.JsonDotNet"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
