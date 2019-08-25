@@ -81,7 +81,7 @@ namespace UnityCityBuilder.Data.Entities
         {
             return new BuildingProductionData()
             {
-                Production = productionQuantity,
+                Quantity = productionQuantity,
                 Resource = resourceType,
                 Seconds = seconds,
             };

@@ -37,7 +37,7 @@ namespace UnityCityBuilder.Game.Buildings.ResourceGeneratorTypes.Entities
             await timeAdapter.Delay(TimeSpan.FromSeconds(productionData.Seconds), cancellationToken);
             CanGenerateResource = true;
 
-            var generatedResources = (productionData.Resource, productionData.Production);
+            var generatedResources = (productionData.Resource, productionData.Quantity);
             resourcesExchanger.AddResources(generatedResources);
             return generatedResources;
         }

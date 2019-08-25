@@ -1,6 +1,4 @@
 ﻿using CityBuilder.Views;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WorstGameStudios.Core.Engine.UI;
 
@@ -10,7 +8,10 @@ namespace UnityCityBuilder.Views
     {
         [SerializeField]
         private PlayerView playerView;
+        [SerializeField]
+        private ModesView modesView;
 
         public IPlayerView PlayerView => playerView;
+        public IModesView ModesView => modesView;
     }
 }

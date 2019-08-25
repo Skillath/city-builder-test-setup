@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingView: {fileID: 4521653878040970817, guid: 329b1c58d628c1048ab358ec17e5c990,
     type: 3}
+  gameView: {fileID: 836965296775733318, guid: 2ea6985ef8524544b8e25e8fdb316bc1, type: 3}
   residenceBuilding: {fileID: 838073866577497084, guid: 2927feadd078d4344bcda7a5010e6420,
     type: 3}
   woodProductionBuilding: {fileID: 1394739567750588101, guid: c9dae8c31a659634d9eb1a3f73c72c49,

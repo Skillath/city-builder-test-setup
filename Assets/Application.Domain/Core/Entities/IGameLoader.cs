@@ -11,5 +11,7 @@ namespace CityBuilder.Core.Entities
     public interface IGameLoader
     {
         Task<IGameStrategy> LoadGame(int scenId, CancellationToken cancellationToken);
+
+        Task Unload();
     }
 }

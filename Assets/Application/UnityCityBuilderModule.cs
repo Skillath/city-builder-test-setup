@@ -20,6 +20,9 @@ namespace UnityCityBuilder
         [SerializeField]
         private LoadingView loadingView;
 
+        [SerializeField]
+        private GameView gameView;
+
         [Header("Buildings")]
         [SerializeField]
         private ResidenceBuilding residenceBuilding;
@@ -32,7 +35,7 @@ namespace UnityCityBuilder
         {
             CityBuilderModule.Install(Container);
 
-            Container.Bind<IGameLoader>().To<GameLoader>().AsSingle();
+            Container.Bind<IGameLoader>().To<SceneGameLoader>().AsSingle();
 
 
             Container.Bind<DataProvider<BuildingsData>>().AsSingle().WithArguments("BuildingsData");
@@ -44,6 +47,7 @@ namespace UnityCityBuilder
                 .WhenInjectedInto(typeof(DataProvider<BuildingsData>), typeof(DataProvider<ResourcesData>));
 
             Container.BindIWindow<ILoadingView>().To<LoadingView>().FromComponentInNewPrefab(loadingView).AsSingle();
+            Container.BindIWindow<IGameView>().To<GameView>().FromComponentInNewPrefab(gameView).AsSingle();
 
             var buildingsContainer = Container.CreateEmptyGameObject("BuildingsContainer");
             Container.BindMemoryPool<ResidenceBuilding, BuildingFactory>()

@@ -34,16 +34,21 @@ namespace UnityCityBuilder.Game.Buildings.ResourceGeneratorTypes.Entities
         {
             _ = GenerateResourcesIndefinitelly(cancellationToken);
             await Task.Yield();
-            return (productionData.Resource, productionData.Production);
+            return (productionData.Resource, productionData.Quantity);
         }
 
         private async Task GenerateResourcesIndefinitelly(CancellationToken cancellationToken)
         {
-            while (!cancellationToken.IsCancellationRequested)
+            if (cancellationToken.IsCancellationRequested || !this.gameObject.activeInHierarchy)
+            {
+                return;
+            }
+
+            while (!cancellationToken.IsCancellationRequested && this.gameObject.activeInHierarchy)
             {
                 await timeAdapter.Delay(TimeSpan.FromSeconds(productionData.Seconds), cancellationToken);
 
-                var generatedResources = (productionData.Resource, productionData.Production);
+                var generatedResources = (productionData.Resource, productionData.Quantity);
                 resourcesExchanger.AddResources(generatedResources);
             }
         }

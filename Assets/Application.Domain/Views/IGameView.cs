@@ -5,5 +5,7 @@ namespace CityBuilder.Views
     public interface IGameView : IWindow
     {
         IPlayerView PlayerView { get; }
+
+        IModesView ModesView { get; }
     }
 }

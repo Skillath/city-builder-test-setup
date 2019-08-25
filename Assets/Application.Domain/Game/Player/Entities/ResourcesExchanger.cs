@@ -1,4 +1,5 @@
 ﻿using CityBuilder.Data;
+using System;
 
 namespace CityBuilder.Game.Player.Entities
 {
@@ -18,24 +19,29 @@ namespace CityBuilder.Game.Player.Entities
 
         public void AddResources(params (ResourceType resourceType, int quantity)[] resources)
         {
-            foreach (var operation in resources)
+            foreach (var (resourceType, quantity) in resources)
             {
-                player.Resources[operation.resourceType] += operation.quantity;
-                OnResourceAdded?.Invoke(operation.resourceType, operation.quantity);
+                if (!player.Resources.ContainsKey(resourceType))
+                {
+                    throw new Exception($"Not found {resourceType.ToString()}");
+                }
+
+                player.Resources[resourceType] += quantity;
+                OnResourceAdded?.Invoke(resourceType, quantity);
             }
         }
 
         public void RemoveResource(params (ResourceType resourceType, int quantity)[] resources)
         {
-            foreach (var operation in resources)
+            foreach (var (resourceType, quantity) in resources)
             {
-                if (player.Resources[operation.resourceType] < operation.quantity)
+                if (player.Resources[resourceType] < quantity)
                 {
                     continue;
                 }
 
-                player.Resources[operation.resourceType] -= operation.quantity;
-                OnResourceRemoved?.Invoke(operation.resourceType, operation.quantity);
+                player.Resources[resourceType] -= quantity;
+                OnResourceRemoved?.Invoke(resourceType, quantity);
             }
         }
     }
