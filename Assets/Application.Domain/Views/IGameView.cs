@@ -1,18 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using WorstGameStudios.Core.Abstractions.Engine.UI;
 
-public class IGameView : MonoBehaviour
+namespace CityBuilder.Views
 {
-    // Start is called before the first frame update
-    void Start()
+    public interface IGameView : IWindow
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        IPlayerView PlayerView { get; }
     }
 }

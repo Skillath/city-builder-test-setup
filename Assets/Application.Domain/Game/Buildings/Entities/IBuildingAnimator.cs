@@ -12,5 +12,7 @@ namespace CityBuilder.Game.Buildings.Entities
         Task PlayShowAnimation(CancellationToken cancellationToken);
 
         void PlayIdleAnimation();
+
+        void PlaySelectAnimation();
     }
 }

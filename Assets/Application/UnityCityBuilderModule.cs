@@ -1,8 +1,10 @@
 using CityBuilder;
+using CityBuilder.Core.Entities;
 using CityBuilder.Data;
 using CityBuilder.DataProvider;
 using CityBuilder.Game.Buildings.Entities;
 using CityBuilder.Views;
+using UnityCityBuilder.Core.Entities;
 using UnityCityBuilder.Data.Entities;
 using UnityCityBuilder.DataProvider;
 using UnityCityBuilder.Game.Buildings.Entities;
@@ -18,15 +20,19 @@ namespace UnityCityBuilder
         [SerializeField]
         private LoadingView loadingView;
 
-        [Space]
         [Header("Buildings")]
         [SerializeField]
         private ResidenceBuilding residenceBuilding;
-
+        [SerializeField]
+        private WoodProductionBuilding woodProductionBuilding;
+        [SerializeField]
+        private SteelProductionBuilding steelProductionBuilding;
 
         public override void InstallBindings()
         {
             CityBuilderModule.Install(Container);
+
+            Container.Bind<IGameLoader>().To<GameLoader>().AsSingle();
 
 
             Container.Bind<DataProvider<BuildingsData>>().AsSingle().WithArguments("BuildingsData");
@@ -45,6 +51,24 @@ namespace UnityCityBuilder
                 .ExpandByOneAtATime()
                 .WithFactoryArguments(BuildingType.Residence)
                 .FromComponentInNewPrefab(residenceBuilding)
+                .UnderTransformGroup(buildingsContainer.name)
+                .AsCached()
+                .WhenInjectedInto<IBuildingLoader>();
+
+            Container.BindMemoryPool<WoodProductionBuilding, BuildingFactory>()
+                .WithInitialSize(5)
+                .ExpandByOneAtATime()
+                .WithFactoryArguments(BuildingType.WoodProductionBuilding)
+                .FromComponentInNewPrefab(woodProductionBuilding)
+                .UnderTransformGroup(buildingsContainer.name)
+                .AsCached()
+                .WhenInjectedInto<IBuildingLoader>();
+
+            Container.BindMemoryPool<SteelProductionBuilding, BuildingFactory>()
+                .WithInitialSize(5)
+                .ExpandByOneAtATime()
+                .WithFactoryArguments(BuildingType.SteelProductionBuilding)
+                .FromComponentInNewPrefab(steelProductionBuilding)
                 .UnderTransformGroup(buildingsContainer.name)
                 .AsCached()
                 .WhenInjectedInto<IBuildingLoader>();

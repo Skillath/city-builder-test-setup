@@ -15,7 +15,7 @@ namespace UnityCityBuilder.Data.Entities
         {
             return new BuildingsData()
             {
-                Buildings = buildings.Select(b => b.ToBuildingData()).ToArray(),
+                Buildings = buildings?.Select(b => b.ToBuildingData()).ToArray(),
             };
         }
     }
@@ -74,6 +74,8 @@ namespace UnityCityBuilder.Data.Entities
         private ResourceType resourceType;
         [SerializeField]
         private int productionQuantity;
+        [SerializeField]
+        private int seconds = 10;
 
         public BuildingProductionData ToBuildingProductionData()
         {
@@ -81,8 +83,8 @@ namespace UnityCityBuilder.Data.Entities
             {
                 Production = productionQuantity,
                 Resource = resourceType,
+                Seconds = seconds,
             };
         }
     }
-
 }

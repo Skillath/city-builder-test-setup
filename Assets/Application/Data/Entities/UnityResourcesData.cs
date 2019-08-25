@@ -9,7 +9,7 @@ namespace UnityCityBuilder.Data.Entities
     public class UnityResourcesData : ScriptableObject, IConvertible<ResourcesData>
     {
         public ResourcesData ToData()
-        {
+        { 
             return new ResourcesData()
             {
                 Resources = (ResourceType[])Enum.GetValues(typeof(ResourceType)),

@@ -1,18 +1,16 @@
-﻿using System.Collections;
+﻿using CityBuilder.Views;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WorstGameStudios.Core.Engine.UI;
 
-public class GameView : MonoBehaviour
+namespace UnityCityBuilder.Views
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameView : View, IGameView
     {
-        
-    }
+        [SerializeField]
+        private PlayerView playerView;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public IPlayerView PlayerView => playerView;
     }
 }

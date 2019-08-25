@@ -11,9 +11,18 @@ namespace UnityCityBuilder.Game.Buildings.Entities
         [SerializeField]
         private Transform modelContainer;
 
+        private Tween currentTween;
+
         public void PlayIdleAnimation()
         {
-            modelContainer.DOShakeScale(1f).SetDelay(1f).SetLoops(-1);
+            currentTween?.Kill();
+            currentTween = modelContainer.DOShakeScale(1f).SetDelay(1f).SetLoops(-1);
+        }
+
+        public void PlaySelectAnimation()
+        {
+            currentTween?.Kill();
+            currentTween = modelContainer.DOPunchScale(Vector3.up, 1f);
         }
 
         public async Task PlayShowAnimation(CancellationToken cancellationToken)

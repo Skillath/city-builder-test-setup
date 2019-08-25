@@ -16,3 +16,7 @@ MonoBehaviour:
     type: 3}
   residenceBuilding: {fileID: 838073866577497084, guid: 2927feadd078d4344bcda7a5010e6420,
     type: 3}
+  woodProductionBuilding: {fileID: 1394739567750588101, guid: c9dae8c31a659634d9eb1a3f73c72c49,
+    type: 3}
+  steelProductionBuilding: {fileID: 7469622669923568120, guid: 864a88514141d214a85c5174d0c70014,
+    type: 3}

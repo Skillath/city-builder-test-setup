@@ -2,27 +2,35 @@
 using CityBuilder.Game.Buildings.Entities;
 using UnityEngine;
 using WorstGameStudios.Core.Abstractions.Engine.Coordinates;
-using WorstGameStudios.Core.Utils.ExtensionMethods;
-using Zenject;
 
 namespace UnityCityBuilder.Game.Buildings.Entities
 {
-    public abstract class BuildingBase : MonoBehaviour, IBuilding
+    public abstract class BuildingBase : MonoBehaviour, IBuildingStrategy
     {
         [SerializeField]
         private DOTweenBuildingAnimator animator;
         [SerializeField]
-        private GridBuildingSpace location;
+        private GridBuildingSpace space;
 
-
+        private BuildingData data;
 
         public IBuildingAnimator Animator => animator;
 
-        public IBuildingSpace Location => location;
+        public IBuildingSpace Space => space;
+
+        public abstract IBuildingResourceGenerator ResourceGenerator { get; }
 
         public void SetBuildingData(BuildingData data)
         {
-            //throw new System.NotImplementedException();
+            this.data = data;
+
+            ResourceGenerator.Initialize(this.data.Production);
+            Space.Size = new Vector(this.data.Width, 0, this.data.Height);
         }
+
+        protected virtual void Awake() { }
+        protected virtual void Start() { }
+        protected virtual void OnDisable() { }
+
     }
 }

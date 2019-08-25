@@ -7,8 +7,8 @@ namespace CityBuilder.Game.Buildings.Entities
 {
     public interface IBuildingLoader 
     {
-        IBuilding CreateBuilding(BuildingType buildingType);
+        IBuildingStrategy CreateBuilding(BuildingType buildingType);
 
-        void RemoveBuilding(BuildingType buildingType, IBuilding building);
+        void RemoveBuilding(BuildingType buildingType, IBuildingStrategy building);
     }
 }

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 2a8d347aaa2c1b848996034b3e6bb778, type: 3}
   m_Name: BuildingsData
   m_EditorClassIdentifier: UnityCityBuilder:UnityCityBuilder.Data.Entities:UnityBuildingsData
   buildings:
-  - width: 1
-    height: 1
+  - width: 2
+    height: 2
     buildingType: 0
     costData:
     - resourceType: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
     productionData:
       resourceType: 0
       productionQuantity: 100
-  - width: 2
+  - width: 3
     height: 2
     buildingType: 1
     costData:

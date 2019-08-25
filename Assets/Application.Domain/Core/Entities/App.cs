@@ -2,6 +2,8 @@
 using WorstGameStudios.Core.Abstractions.Engine.Logger;
 using WorstGameStudios.Core.Abstractions.Engine.Core;
 using System.Threading.Tasks;
+using CityBuilder.Core.UseCases;
+using System.Threading;
 
 namespace CityBuilder.Core.Entities
 {
@@ -11,24 +13,20 @@ namespace CityBuilder.Core.Entities
         private readonly WindowNavigation windowNavigation;
         private readonly IRoot root;
         private readonly AppInitializer appInitializer;
+        private readonly GameStartUseCase gameStartUseCase;
 
-        public App(IApplicationQuitter applicationQuitter, WindowNavigation windowNavigation, IRoot root, AppInitializer appInitializer)
+        private CancellationTokenSource gameCancellationTokenSource;
+
+        public App(IApplicationQuitter applicationQuitter, WindowNavigation windowNavigation, IRoot root, AppInitializer appInitializer, GameStartUseCase gameStartUseCase)
         {
             this.applicationQuitter = applicationQuitter;
             this.windowNavigation = windowNavigation;
             this.root = root;
             this.appInitializer = appInitializer;
-
+            this.gameStartUseCase = gameStartUseCase;
 
             applicationQuitter.OnQuit += ApplicationQuitter_OnQuit;
             this.root.OnInitialized += Root_OnInitialized;
-
-            InitAndLoad();
-        }
-
-        private async void InitAndLoad()
-        {
-            await Load();
         }
 
         private Task Load()
@@ -40,24 +38,27 @@ namespace CityBuilder.Core.Entities
         {
             applicationQuitter.OnQuit -= ApplicationQuitter_OnQuit;
 
+            gameCancellationTokenSource?.Cancel();
+            gameCancellationTokenSource = null;
+
             return Task.CompletedTask;
         }
 
-        private void Root_OnInitialized()
+        private async void Root_OnInitialized()
         {
             root.OnInitialized -= Root_OnInitialized;
+
+            await Load();
+
             appInitializer.SetInitialized();
 
-            //SHOW LOADING WINDOW
+            gameCancellationTokenSource = new CancellationTokenSource();
 
-            //LOAD GAME
-
-            //SHOW GAME UI
-
-            //HIDE LOADING WINDOW
-
+            try
+            {
+                await gameStartUseCase.PlayGame(gameCancellationTokenSource.Token);
+            }
+            catch (TaskCanceledException) { }
         }
-
-
     }
 }

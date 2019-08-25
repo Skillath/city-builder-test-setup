@@ -10,6 +10,6 @@ namespace CityBuilder.Game.Buildings.Entities
     public interface IBuildingSpace
     {
         Vector Position { get; }
-        Vector Size { get; }
+        Vector Size { get; set; }
     }
 }
