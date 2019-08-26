@@ -4,6 +4,6 @@ namespace CityBuilder.Views
 {
     public interface ILoadingView : IWindow
     {
-        void UpdateProgress(float progress);
+        void UpdateProgress(float? progress);
     }
 }

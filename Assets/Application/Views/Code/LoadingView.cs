@@ -10,9 +10,10 @@ namespace UnityCityBuilder.Views
         [SerializeField]
         private Slider slider;
 
-        public void UpdateProgress(float progress)
+        public void UpdateProgress(float? progress)
         {
-            slider.value = Mathf.Clamp01(progress);
+            slider.gameObject.SetActive(progress.HasValue);
+            slider.value = Mathf.Clamp01(progress ?? 0);
         }
     }
 }

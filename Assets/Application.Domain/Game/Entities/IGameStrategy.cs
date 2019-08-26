@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CityBuilder.Game.Entities
 {
-    public interface IGameStrategy
+    public interface IGameType
     {
         Task Load(CancellationToken cancellationToken);
 

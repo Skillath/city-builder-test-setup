@@ -7,7 +7,6 @@ using CityBuilder.Views;
 using NUnit.Framework;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,7 +38,8 @@ namespace Application.Tests
             var gameLoader = Container.TryResolve<IGameLoader>();
             Assert.That(gameLoader, Is.Not.Null);
 
-            await windowNavigation.Show<ILoadingView>(CancellationToken.None);
+            var loadingView = (ILoadingView)(await windowNavigation.Show<ILoadingView>(CancellationToken.None));
+            loadingView.UpdateProgress(null);
 
             var gameStartegy = await gameLoader.LoadGame(0, CancellationToken.None);
             Assert.That(gameStartegy, Is.Not.Null);

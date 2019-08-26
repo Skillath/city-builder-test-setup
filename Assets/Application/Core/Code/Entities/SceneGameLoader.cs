@@ -19,9 +19,9 @@ namespace UnityCityBuilder.Core.Entities
             this.sceneLoader = sceneLoader;
         }
 
-        public async Task<IGameStrategy> LoadGame(int buildIndex, CancellationToken cancellationToken)
+        public async Task<IGameType> LoadGame(int buildIndex, CancellationToken cancellationToken)
         {
-            var tcs = new TaskCompletionSource<IGameStrategy>();
+            var tcs = new TaskCompletionSource<IGameType>();
             void onSceneLoaded(Scene scene, LoadSceneMode mode)
             {
                 if (tcs.Task.IsCompleted || tcs.Task.IsCanceled || tcs.Task.IsFaulted)
@@ -33,7 +33,7 @@ namespace UnityCityBuilder.Core.Entities
                 {
                     currentScene = scene;
                     SceneManager.SetActiveScene(scene);
-                    var gameType = scene.GetRootGameObjects().FirstOrDefault().GetComponent<IGameStrategy>();
+                    var gameType = scene.GetRootGameObjects().FirstOrDefault().GetComponent<IGameType>();
                     tcs.SetResult(gameType);
                 }
             }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UnityCityBuilder.Game.GameTypes.CityBuilderGame.Entities
 {
-    public class CityBuilderGame : MonoBehaviour, IGameStrategy
+    public class CityBuilderGame : MonoBehaviour, IGameType
     {
         public Task Load(CancellationToken cancellationToken)
         {

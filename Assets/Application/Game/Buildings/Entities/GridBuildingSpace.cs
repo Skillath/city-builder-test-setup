@@ -1,4 +1,5 @@
-﻿using CityBuilder.Game.Buildings.Entities;
+﻿using CityBuilder.Common.Utils;
+using CityBuilder.Game.Buildings.Entities;
 using UnityEngine;
 using WorstGameStudios.Core.Abstractions.Engine.Coordinates;
 using WorstGameStudios.Core.Utils.ExtensionMethods;
@@ -10,8 +11,13 @@ namespace UnityCityBuilder.Game.Buildings.Entities
         [SerializeField]
         private Transform container;
 
+        public Vector GridPosition
+        {
+            get => GridUtils.LocalPositionToGrid(container.localPosition.ToVector(), 10);
+            set => container.localPosition = GridUtils.GridToLocalPosition(value, 10).ToVector3();
+        }
 
-        public Vector Position => container.localPosition.ToVector();
+        public Vector LocalPosition => container.localPosition.ToVector();
 
         public Vector Size { get; set; }
     }

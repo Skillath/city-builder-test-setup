@@ -1,0 +1,26 @@
+{
+    "name": "Application.Tests.Editor",
+    "references": [
+        "WorstGameStudios.Core",
+        "WorstGameStudios.Core.Abstractions",
+        "WorstGameStudios.Core.Tests.Editor",
+        "Zenject",
+        "Zenject-TestFramework",
+        "Zenject-Editor",
+        "Zenject.Moq",
+        "CityBuilder",
+        "UnityCityBuilder"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
