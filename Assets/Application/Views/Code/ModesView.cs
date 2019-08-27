@@ -23,17 +23,20 @@ namespace UnityCityBuilder.Views
             get => isInEditMode;
             set
             {
+
                 if (isInEditMode != value)
                 {
                     isInEditMode = value;
 
-                    btnNormalMode.interactable = !value;
-                    btnEditMode.interactable = value;
+                    btnNormalMode.interactable = value;
+                    btnEditMode.interactable = !value;
 
                     OnModeChanged?.Invoke(value);
                 }
             }
         }
+
+
 
         public override async Task Show(CancellationToken cancellationToken)
         {

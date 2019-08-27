@@ -32,16 +32,6 @@ namespace CityBuilder.Core.Entities
 
         private Task Load() => appDataLoader.LoadAppData();
 
-        private Task ApplicationQuitter_OnQuit()
-        {
-            applicationQuitter.OnQuit -= ApplicationQuitter_OnQuit;
-
-            gameCancellationTokenSource?.Cancel();
-            gameCancellationTokenSource = null;
-
-            return Task.CompletedTask;
-        }
-
         private async void Root_OnInitialized()
         {
             root.OnInitialized -= Root_OnInitialized;
@@ -55,6 +45,16 @@ namespace CityBuilder.Core.Entities
                 await gameStartUseCase.PlayGame(gameCancellationTokenSource.Token);
             }
             catch (TaskCanceledException) { }
+        }
+
+        private Task ApplicationQuitter_OnQuit()
+        {
+            applicationQuitter.OnQuit -= ApplicationQuitter_OnQuit;
+
+            gameCancellationTokenSource?.Cancel();
+            gameCancellationTokenSource = null;
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -43,9 +43,9 @@ namespace Application.Tests
             var loadingView = (ILoadingView)(await windowNavigation.Show<ILoadingView>(CancellationToken.None));
             loadingView.UpdateProgress(null);
 
-            var gameStartegy = await gameLoader.LoadGame(0, CancellationToken.None);
+            var gameStartegy = await gameLoader.LoadGame(1, CancellationToken.None);
             Assert.That(gameStartegy, Is.Not.Null);
-            //await gameStartegy.Load(CancellationToken.None);
+
             await windowNavigation.Hide<ILoadingView>(CancellationToken.None);
         }
 

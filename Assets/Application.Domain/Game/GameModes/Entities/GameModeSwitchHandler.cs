@@ -18,9 +18,9 @@ namespace CityBuilder.Game.GameModes.Entities
 
         public void Init(bool startInEditMode = false)
         {
-            gameView.ModesView.IsInEditMode = startInEditMode;
             gameView.ModesView.OnModeChanged += ModesView_OnModeChanged;
-            ModesView_OnModeChanged(startInEditMode);
+            gameView.ModesView.IsInEditMode = startInEditMode;
+            //ModesView_OnModeChanged(startInEditMode);
         }
 
         private void ModesView_OnModeChanged(bool isInEditMode)

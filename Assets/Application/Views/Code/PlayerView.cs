@@ -18,6 +18,8 @@ namespace UnityCityBuilder.Views
             this.resourcesExchanger = resourceExchanger;
         }
 
+        
+
         public void Initialize()
         {
             resourcesExchanger.OnResourceAdded += ResourcesExchanger_OnResourceAdded;

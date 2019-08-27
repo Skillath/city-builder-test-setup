@@ -1,4 +1,6 @@
 ﻿using CityBuilder.Core.Entities;
+using CityBuilder.Data;
+using CityBuilder.DataProvider;
 using CityBuilder.Game.GameModes.Entities;
 using CityBuilder.Views;
 using System.Collections.Generic;
@@ -14,15 +16,20 @@ namespace CityBuilder.Game.Entities
         private readonly WindowNavigation windowNavigation;
         private readonly IGameLoader gameLoader;
         private readonly IList<IGameEndCondition> gameEndConditions;
+        private readonly Player.Entities.Player player;
+        private readonly DataProvider<ResourcesData> resourcesDataProvider;
 
+        private ResourcesData resourcesData;
         private IGameType currentGame;
         private GameModeSwitchHandler gameModeSwitchHandler;
 
-        public GameStrategy(WindowNavigation windowNavigation, IGameLoader gameLoader, IList<IGameEndCondition> gameEndConditions)
+        public GameStrategy(WindowNavigation windowNavigation, IGameLoader gameLoader, IList<IGameEndCondition> gameEndConditions, Player.Entities.Player player, DataProvider<ResourcesData> resourcesDataProvider)
         {
             this.windowNavigation = windowNavigation;
             this.gameLoader = gameLoader;
             this.gameEndConditions = gameEndConditions;
+            this.player = player;
+            this.resourcesDataProvider = resourcesDataProvider;
         }
 
         public async Task Load()
@@ -30,7 +37,10 @@ namespace CityBuilder.Game.Entities
             var loadingView = (ILoadingView)(await windowNavigation.Show<ILoadingView>(CancellationToken.None));
             loadingView.UpdateProgress(null);
 
-            currentGame = await gameLoader.LoadGame(0, CancellationToken.None);
+            resourcesData = await resourcesDataProvider.GetData();
+            player.InitResources(resourcesData);
+
+            currentGame = await gameLoader.LoadGame(1, CancellationToken.None);
             _ = windowNavigation.Hide<ILoadingView>(CancellationToken.None);
         }
 
