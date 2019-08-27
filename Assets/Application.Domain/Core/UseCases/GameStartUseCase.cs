@@ -1,29 +1,28 @@
-﻿using CityBuilder.Core.Entities;
+﻿using CityBuilder.Game.Entities;
 using System.Threading;
 using System.Threading.Tasks;
-using WorstGameStudios.Core.Abstractions.Engine.UI;
 
 namespace CityBuilder.Core.UseCases
 {
     public class GameStartUseCase
     {
-        private readonly WindowNavigation windowNavigation;
-        private readonly IGameLoader gameLoader;
+        private readonly GameStrategy gameStrategy;
 
-        public GameStartUseCase(WindowNavigation windowNavigation, IGameLoader gameLoader)
+        public GameStartUseCase(GameStrategy gameStrategy)
         {
-            this.windowNavigation = windowNavigation;
-            this.gameLoader = gameLoader;
+            this.gameStrategy = gameStrategy;
         }
 
         public async Task PlayGame(CancellationToken cancellationToken)
         {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return;
+            }
 
-        }
-
-        private async Task LaunchGame(CancellationToken cancellationToken)
-        {
-
+            await gameStrategy.Load();
+            await gameStrategy.PlayGame(cancellationToken);
+            await gameStrategy.Unload();
         }
     }
 }

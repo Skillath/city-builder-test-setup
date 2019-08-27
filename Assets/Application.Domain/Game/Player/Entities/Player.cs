@@ -1,5 +1,4 @@
 ﻿using CityBuilder.Data;
-using CityBuilder.DataProvider;
 using System.Collections.Generic;
 
 namespace CityBuilder.Game.Player.Entities

@@ -9,7 +9,9 @@
         "Zenject",
         "Zenject-TestFramework",
         "Zenject.Moq",
-        "WorstGameStudios.Core.Tests"
+        "WorstGameStudios.Core.Tests",
+        "UniRx",
+        "UniRx.Async"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"

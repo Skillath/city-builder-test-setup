@@ -805,7 +805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerView: {fileID: 836965295924830966}
-  modesView: {fileID: 0}
+  modesView: {fileID: 4430518740964478914}
 --- !u!1 &836965297215767070
 GameObject:
   m_ObjectHideFlags: 0

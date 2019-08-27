@@ -3,19 +3,30 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using DG.Tweening;
 
 namespace UnityCityBuilder.Game.GameTypes.CityBuilderGame.Entities
 {
     public class CityBuilderGame : MonoBehaviour, IGameType
     {
-        public Task Load(CancellationToken cancellationToken)
+        [SerializeField]
+        private Transform cameraPosition;
+
+        private Transform cameraOriginalPosition;
+
+        public Task Init(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cameraOriginalPosition = Camera.main.transform.parent;
+            Camera.main.transform.SetParent(cameraPosition, false);
+
+            return Task.CompletedTask;
         }
 
-        public Task Unload()
+        public Task End(CancellationToken canellationToken)
         {
-            throw new NotImplementedException();
+            Camera.main?.transform?.SetParent(cameraOriginalPosition, false);
+            return Task.CompletedTask;
         }
+
     }
 }

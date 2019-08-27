@@ -5,7 +5,6 @@ using CityBuilder.DataProvider;
 using CityBuilder.Game.Buildings.Entities;
 using CityBuilder.Views;
 using UnityCityBuilder.Core.Entities;
-using UnityCityBuilder.Data.Entities;
 using UnityCityBuilder.DataProvider;
 using UnityCityBuilder.Game.Buildings.Entities;
 using UnityCityBuilder.Views;
@@ -38,8 +37,7 @@ namespace UnityCityBuilder
             Container.Bind<IGameLoader>().To<SceneGameLoader>().AsSingle();
 
 
-            Container.Bind<DataProvider<BuildingsData>>().AsSingle().WithArguments("BuildingsData");
-            Container.Bind<DataProvider<ResourcesData>>().AsSingle().WithArguments("ResourcesData");
+           
 
             //Container.Bind<ILoader>().To<StreamingAssetsDataLoader>().AsSingle()
             //  .WhenInjectedInto(typeof(StreamingAssetsDataProvider<BuildingsData>), typeof(StreamingAssetsDataProvider<ResourcesData>));

@@ -2,6 +2,7 @@
 using CityBuilder.Data;
 using CityBuilder.DataProvider;
 using CityBuilder.Game.Buildings.Entities;
+using CityBuilder.Game.Entities;
 using CityBuilder.Game.Player.Entities;
 using CityBuilder.Views;
 using NUnit.Framework;
@@ -10,6 +11,8 @@ using System.Collections;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using UniRx;
+using UnityEngine;
 using UnityEngine.TestTools;
 using WorstGamesStudios.Tests.Common;
 using WorstGameStudios.Core.Abstractions.Engine.UI;
@@ -22,12 +25,11 @@ namespace Application.Tests
         [Timeout(3000000)]
         public IEnumerator LoadGameTest()
         {
-            var playGame = PlayGame();
+            var playGame = LoadGame();
             yield return playGame.AsIEnumerator();
             Assert.That(playGame.IsCompleted && !playGame.IsCanceled && !playGame.IsCanceled);
         }
-
-        private async Task PlayGame()
+        private async Task LoadGame()
         {
             var root = Container.TryResolve<IRoot>();
             Assert.That(root, Is.Not.Null);
@@ -46,6 +48,34 @@ namespace Application.Tests
             //await gameStartegy.Load(CancellationToken.None);
             await windowNavigation.Hide<ILoadingView>(CancellationToken.None);
         }
+
+        [UnityTest]
+        [Timeout(3000000)]
+        public IEnumerator LoadGameStrategyTest()
+        {
+            var playGame = LoadGameStrategy();
+            yield return playGame.AsIEnumerator();
+            Assert.That(playGame.IsCompleted && !playGame.IsCanceled && !playGame.IsCanceled);
+        }
+
+        private async Task LoadGameStrategy()
+        {
+            var gameStrategy = Container.TryResolve<GameStrategy>();
+            Assert.That(gameStrategy, Is.Not.Null);
+
+            var tcs = new TaskCompletionSource<bool>();
+            var escape = Observable.EveryUpdate().Where(_ => Input.GetKey(KeyCode.Escape)).Subscribe(_ => tcs?.SetResult(true));
+
+            await gameStrategy.Load();
+            await Task.WhenAny(tcs.Task, gameStrategy.PlayGame(CancellationToken.None));
+            await gameStrategy.Unload();
+
+            escape.Dispose();
+            escape = null;
+            tcs = null;
+
+        }
+
 
         [UnityTest]
         [Timeout(3000000)]
@@ -146,5 +176,8 @@ namespace Application.Tests
 
 
         }
+
+
+
     }
 }

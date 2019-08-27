@@ -5,8 +5,8 @@ namespace CityBuilder.Game.Entities
 {
     public interface IGameType
     {
-        Task Load(CancellationToken cancellationToken);
+        Task Init(CancellationToken cancellationToken);
 
-        Task Unload();
+        Task End(CancellationToken canellationToken);
     }
 }
